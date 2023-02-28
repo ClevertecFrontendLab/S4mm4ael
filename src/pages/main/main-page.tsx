@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { Card } from '../../components/card';
@@ -20,6 +21,7 @@ export function MainPage() {
   const category: string | undefined = useSelector((state: RootState) => state.data.category);
   const sorting: boolean = useSelector((state: RootState) => state.data.sorting);
   const searchQuery: string = useSelector((state: RootState) => state.data.searchQuery);
+  const location = useLocation()
 
   const {
     data: books = [],
@@ -72,7 +74,7 @@ export function MainPage() {
     if (category) {
       booksArrayFiltered = books.filter((book: Book) => book.categories.indexOf(defineRoute(category)) > -1);
     }
-    if (category === undefined || window.location.href.slice(-3) === 'all') {
+    if (category === undefined || location.pathname.slice(-3) === 'all') {
       booksArrayFiltered = books;
     }
     if (booksArrayFiltered.length !== 0) {

@@ -1,6 +1,6 @@
 import Highlighter from 'react-highlight-words';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import empty from '../../assets/img/book-cover-none.jpg';
 import emptyList from '../../assets/img/book-cover-none-list.jpg';
@@ -15,7 +15,7 @@ import styles from './card.module.css';
 export function Card(props: BookCard) {
   const { id, image, authors, title, issueYear, rating, booking, categories } = props.bookItem;
   const category = categories[0];
-
+  const location = useLocation()
   const searchQuery: string = useSelector((state: RootState) => state.data.searchQuery);
 
   function Truncate(string: string, amount: number) {
@@ -65,7 +65,8 @@ export function Card(props: BookCard) {
     return path;
   }
   function defineLink() {
-    if (window.location.href.split('/')[5] === 'all') {
+
+    if (location.pathname.split('/')[3] === 'all') {
       return 'all';
     }
 
